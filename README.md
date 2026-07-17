@@ -1,1 +1,1 @@
-# JS_for_Playwright
+# JS_for_Playwright for Automation lab classes
