@@ -50,7 +50,7 @@ console.log(2 ** 3);//2x2x2=8
 console.log("2" ** 3);// 2 ** 3 = 8
 
 
-//Unary Plus (+): converts to a number:
+//Unary Plus (+): converts to a number: (the unary + converts numerical strings into numbers)
 console.log(+"42" + 5);//42 + 5 = 47
 let d = "45";
 console.log(+d + 10);
@@ -58,7 +58,7 @@ console.log(+d + 10);
 let totalAmount = "2000";
 console.log(+totalAmount + 200); //2000 + 200 = 2200
 
-//Unary Negation (-) : 
+//Unary Negation (-) :
 console.log(-"42" + 100); //-42 + 100=58
 console.log(-"130" - 20);//-130 - 20 = -150
 
@@ -69,7 +69,7 @@ console.log(100 - -"40");//100 - -40 => 100+40 = 140
 
 console.log(1 + +"2");//1 + +2 = 3
 
-console.log(+"hello" + 2);
+console.log(+"hello" + 2); // NaN
 
 
 let marks = "-100";
@@ -79,4 +79,3 @@ console.log(-marks + 20);
 
 let number = '100';
 console.log(`${-number + 20}`);
-

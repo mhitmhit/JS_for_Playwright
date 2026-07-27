@@ -32,7 +32,7 @@
 // console.log(i);
 // console.log(typeof i);
 
-// //2. string/characters: 
+// //2. string/characters:
 // // "" and ''
 // //size: for each char 2 bytes
 // let name = 'Naveen'; //6x2 = 12 bytes
@@ -72,7 +72,7 @@
 // let isElementExist = false;
 // console.log(isElementExist);
 
-// //4. undefined: 
+// //4. undefined:
 // //size: 0 bytes
 // let firstName = undefined;//0
 // console.log(firstName);
@@ -86,7 +86,7 @@
 // //size: 0 bytes
 // let obj = null;
 // console.log(obj);
-// console.log(typeof obj);//object //existing bug in JS..legacy bug
+// console.log(typeof obj);//object //existing bug in JS..legacy bug.... type of null is an object.
 
 // //Re-initialization:
 // let c = 10;
@@ -122,7 +122,7 @@
 // console.log(title);
 
 
-//const: 
+//const:
 // redeclaration: No
 // reassignment: no
 
@@ -135,13 +135,12 @@
 // reassignment: Yes
 
 
-//Hoisting: 
+//Hoisting:
+    //var: allowed -- undefined -- no error
+    //let: not allowed
+    //const: not allowed
 console.log(m);
 let m;
 console.log(m);
 m = 10;
 console.log(m);//10
-
-//var: allowed -- undefined -- no error
-//let: not allowed
-//const: not allowed

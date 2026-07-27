@@ -1,14 +1,15 @@
 
 
 //Template Literals : backtick : ``
-//'' "" ``
+// strings can be represented with '' "" ``
+// when `` are used, it is called template litterals
 
 let mesg = `this my js code and I love it`;
 console.log(mesg);
 
 let address = `101 new bhuilding
 whitefield, east bangalore
-banaglore 56990 
+banaglore 56990
 Karnatana, India`;
 
 console.log(address);
@@ -51,5 +52,3 @@ console.log(`//input[text()="${username}"]`);
 // hi it's my js code
 console.log("hi it's my js code");
 console.log(`hi it's my js code`);
-
-
