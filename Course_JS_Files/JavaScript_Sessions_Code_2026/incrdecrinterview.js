@@ -92,3 +92,5 @@ console.log(test);//100n
 //100n --> string : "100"
 
 console.log(+"100n" + 10);//NaN + 10 = Nan
+
+console.log(10 !== "10");

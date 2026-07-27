@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promise Combinators in JavaScript</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --panel-bg: #ffffff;
+    --panel-elev: #f5f5f4;
+    --text: #1c1917;
+    --text-muted: #57534e;
+    --text-faint: #a8a29e;
+    --border: #e7e5e4;
+    --border-strong: #d6d3d1;
+    --accent: #2563eb;
+    --accent-bg: #eff6ff;
+    --pending: #93c5fd;
+    --success: #65a30d;
+    --success-bg: #f0fdf4;
+    --success-text: #14532d;
+    --success-border: #bbf7d0;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --danger-text: #7f1d1d;
+    --danger-border: #fecaca;
+    --code-bg: #f8f7f4;
+    --code-comment: #94a3b8;
+    --code-string: #16a34a;
+    --code-key: #7c3aed;
+    --code-method: #0369a1;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .header { margin-bottom: 32px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle { font-size: 15px; color: var(--text-muted); margin: 0; }
+
+  .setup {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .setup-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .setup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .setup-card {
+    background: var(--panel-elev);
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+  }
+
+  .setup-card-name { font-weight: 500; font-size: 13px; margin-bottom: 2px; }
+  .setup-card-meta { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .setup-card.success .setup-card-meta { color: var(--success); }
+  .setup-card.fail .setup-card-meta { color: var(--danger); }
+
+  .controls { display: flex; gap: 8px; margin-bottom: 20px; }
+
+  button {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 16px;
+    border: 1px solid var(--border-strong);
+    background: var(--panel-bg);
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  button:hover { background: var(--panel-elev); border-color: var(--text-faint); }
+  button:active { transform: scale(0.98); }
+  button.primary { background: var(--text); color: white; border-color: var(--text); }
+  button.primary:hover { background: #292524; }
+
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+  }
+
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .panel-method {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .panel-tag { font-size: 12px; color: var(--text-muted); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 140px 1fr 130px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+
+  .row-label { color: var(--text-muted); }
+
+  .track {
+    height: 18px;
+    background: var(--panel-elev);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    overflow: hidden;
+  }
+
+  .fill {
+    height: 100%;
+    width: 0;
+    background: var(--pending);
+    border-radius: 9px;
+    transition: width 0s linear;
+  }
+  .fill.s { background: var(--success); }
+  .fill.f { background: var(--danger); }
+
+  .row-status {
+    font-size: 12px;
+    color: var(--text-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .row-status.show { opacity: 1; }
+  .row-status.s { color: var(--success); }
+  .row-status.f { color: var(--danger); }
+
+  .result {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    background: var(--panel-elev);
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+  }
+  .result.s { background: var(--success-bg); color: var(--success-text); border-color: var(--success-border); }
+  .result.f { background: var(--danger-bg); color: var(--danger-text); border-color: var(--danger-border); }
+  .result .ti { font-size: 16px; }
+
+  .scenarios-block {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border-strong);
+  }
+
+  .scenarios-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .scenario {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .scenario:last-child { margin-bottom: 0; }
+
+  .scenario-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 8px 14px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scenario-label.animated {
+    background: var(--accent-bg);
+    color: var(--accent);
+  }
+
+  .scenario-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--panel-elev);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .scenario-tag.s { background: var(--success-bg); color: var(--success-text); }
+  .scenario-tag.f { background: var(--danger-bg); color: var(--danger-text); }
+  .scenario-tag.now { background: var(--accent); color: white; }
+
+  .scenario-text {
+    flex: 1;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .scenario-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--text);
+    padding: 10px 14px;
+    margin: 0;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .c-comment { color: var(--code-comment); font-style: italic; }
+  .c-string  { color: var(--code-string); }
+  .c-key     { color: var(--code-key); }
+  .c-method  { color: var(--code-method); }
+  .c-error   { color: var(--danger); }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .footer strong { color: var(--text-muted); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px 40px; }
+    h1 { font-size: 22px; }
+    .setup-grid { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 100px 1fr 90px; gap: 10px; font-size: 12px; }
+    .panel { padding: 14px 16px; }
+    .scenario-code { font-size: 11px; }
+    .scenario-label { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="eyebrow">JavaScript &middot; Async Patterns</div>
+    <h1>Promise Combinators &mdash; All Scenarios</h1>
+    <p class="subtitle">Same 3 promises. 4 combinators. Every possible outcome covered.</p>
+  </div>
+
+  <div class="setup">
+    <div class="setup-title">Default test promises (used in the animated demo)</div>
+    <div class="setup-grid">
+      <div class="setup-card success">
+        <div class="setup-card-name">Espresso</div>
+        <div class="setup-card-meta">2s &middot; resolves</div>
+      </div>
+      <div class="setup-card success">
+        <div class="setup-card-name">Latte</div>
+        <div class="setup-card-meta">3s &middot; resolves</div>
+      </div>
+      <div class="setup-card fail">
+        <div class="setup-card-name">Cappuccino</div>
+        <div class="setup-card-meta">1s &middot; rejects (out of beans)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="primary" onclick="pccPlay()"><i class="ti ti-player-play"></i> Play all</button>
+    <button onclick="pccReset()"><i class="ti ti-refresh"></i> Reset</button>
+  </div>
+
+  <!-- ============== Promise.all ============== -->
+  <div class="panel" data-method="all">
+    <div class="panel-head">
+      <span class="panel-method">Promise.all</span>
+      <span class="panel-tag">All must succeed &mdash; fails fast on any rejection</span>
+    </div>
+    <div class="row" data-p="esp"><span class="row-label">Espresso (2s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="lat"><span class="row-label">Latte (3s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="cap"><span class="row-label">Cappuccino (1s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="result" data-result><i class="ti ti-clock"></i> Click play to see how it settles</div>
+
+    <div class="scenarios-block">
+      <div class="scenarios-title"><i class="ti ti-list-details"></i> All possible scenarios</div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag s">Scenario 1</span><span class="scenario-text">If ALL 3 promises resolve</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.all([espresso(), latte(), cappuccino()])
+  .then(results =&gt; <span class="c-method">console</span>.log(<span class="c-string">"All ready:"</span>, results));
+
+<span class="c-comment">// After 3s (waits for the slowest):</span>
+All ready: [
+  <span class="c-string">"Espresso ready"</span>,
+  <span class="c-string">"Latte ready"</span>,
+  <span class="c-string">"Cappuccino ready"</span>
+]</pre>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag f">Scenario 2</span><span class="scenario-text">If ANY promise rejects (this is the animated case)</span><span class="scenario-tag now">Animated above</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.all([espresso(), latte(), cappuccino()])
+  .then(results =&gt; <span class="c-method">console</span>.log(<span class="c-string">"All ready:"</span>, results))
+  .catch(err =&gt; <span class="c-method">console</span>.log(<span class="c-string">"Failed:"</span>, err));
+
+<span class="c-comment">// After 1s (fails fast on Cappuccino's rejection — other promises ignored):</span>
+<span class="c-error">Failed: "Out of beans!"</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Promise.allSettled ============== -->
+  <div class="panel" data-method="allSettled">
+    <div class="panel-head">
+      <span class="panel-method">Promise.allSettled</span>
+      <span class="panel-tag">Waits for all &mdash; never fails, reports each outcome</span>
+    </div>
+    <div class="row" data-p="esp"><span class="row-label">Espresso (2s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="lat"><span class="row-label">Latte (3s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="cap"><span class="row-label">Cappuccino (1s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="result" data-result><i class="ti ti-clock"></i> Click play to see how it settles</div>
+
+    <div class="scenarios-block">
+      <div class="scenarios-title"><i class="ti ti-list-details"></i> All possible scenarios</div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag s">Scenario 1</span><span class="scenario-text">If ALL resolve</span></div>
+        <pre class="scenario-code">[
+  { <span class="c-key">status</span>: <span class="c-string">'fulfilled'</span>, <span class="c-key">value</span>: <span class="c-string">'Espresso ready'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'fulfilled'</span>, <span class="c-key">value</span>: <span class="c-string">'Latte ready'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'fulfilled'</span>, <span class="c-key">value</span>: <span class="c-string">'Cappuccino ready'</span> }
+]</pre>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag">Scenario 2</span><span class="scenario-text">Mixed &mdash; some resolve, some reject</span><span class="scenario-tag now">Animated above</span></div>
+        <pre class="scenario-code">[
+  { <span class="c-key">status</span>: <span class="c-string">'fulfilled'</span>, <span class="c-key">value</span>:  <span class="c-string">'Espresso ready'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'fulfilled'</span>, <span class="c-key">value</span>:  <span class="c-string">'Latte ready'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'rejected'</span>,  <span class="c-key">reason</span>: <span class="c-string">'Out of beans!'</span> }
+]</pre>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag f">Scenario 3</span><span class="scenario-text">If ALL reject &mdash; still resolves, never throws</span></div>
+        <pre class="scenario-code">[
+  { <span class="c-key">status</span>: <span class="c-string">'rejected'</span>, <span class="c-key">reason</span>: <span class="c-string">'Espresso machine broken'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'rejected'</span>, <span class="c-key">reason</span>: <span class="c-string">'No milk available'</span> },
+  { <span class="c-key">status</span>: <span class="c-string">'rejected'</span>, <span class="c-key">reason</span>: <span class="c-string">'Out of beans!'</span> }
+]
+<span class="c-comment">// .catch() never fires for allSettled — guaranteed safe</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Promise.race ============== -->
+  <div class="panel" data-method="race">
+    <div class="panel-head">
+      <span class="panel-method">Promise.race</span>
+      <span class="panel-tag">First to settle wins &mdash; success or failure</span>
+    </div>
+    <div class="row" data-p="esp"><span class="row-label">Espresso (2s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="lat"><span class="row-label">Latte (3s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="cap"><span class="row-label">Cappuccino (1s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="result" data-result><i class="ti ti-clock"></i> Click play to see how it settles</div>
+
+    <div class="scenarios-block">
+      <div class="scenarios-title"><i class="ti ti-list-details"></i> All possible scenarios</div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag s">Scenario 1</span><span class="scenario-text">If first to settle RESOLVES &mdash; e.g. Cappuccino (1s) succeeded</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.race([espresso(), latte(), cappuccino()])
+  .then(winner =&gt; <span class="c-method">console</span>.log(<span class="c-string">"Winner:"</span>, winner))
+  .catch(err =&gt; <span class="c-method">console</span>.log(<span class="c-string">"First to fail:"</span>, err));
+
+<span class="c-comment">// After 1s (fastest one wins, even though others are still running):</span>
+Winner: <span class="c-string">"Cappuccino ready"</span></pre>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag f">Scenario 2</span><span class="scenario-text">If first to settle REJECTS &mdash; Cappuccino (1s) failed</span><span class="scenario-tag now">Animated above</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.race([espresso(), latte(), cappuccino()])
+  .then(winner =&gt; <span class="c-method">console</span>.log(<span class="c-string">"Winner:"</span>, winner))
+  .catch(err =&gt; <span class="c-method">console</span>.log(<span class="c-string">"First to fail:"</span>, err));
+
+<span class="c-comment">// After 1s (rejection still wins the race):</span>
+<span class="c-error">First to fail: "Out of beans!"</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Promise.any ============== -->
+  <div class="panel" data-method="any">
+    <div class="panel-head">
+      <span class="panel-method">Promise.any</span>
+      <span class="panel-tag">First success wins &mdash; fails only if all fail</span>
+    </div>
+    <div class="row" data-p="esp"><span class="row-label">Espresso (2s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="lat"><span class="row-label">Latte (3s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="row" data-p="cap"><span class="row-label">Cappuccino (1s)</span><div class="track"><div class="fill"></div></div><span class="row-status"></span></div>
+    <div class="result" data-result><i class="ti ti-clock"></i> Click play to see how it settles</div>
+
+    <div class="scenarios-block">
+      <div class="scenarios-title"><i class="ti ti-list-details"></i> All possible scenarios</div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag s">Scenario 1</span><span class="scenario-text">At least ONE resolves &mdash; rejections are ignored</span><span class="scenario-tag now">Animated above</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.any([espresso(), latte(), cappuccino()])
+  .then(winner =&gt; <span class="c-method">console</span>.log(<span class="c-string">"First success:"</span>, winner))
+  .catch(err =&gt; <span class="c-method">console</span>.log(<span class="c-string">"All failed:"</span>, err.errors));
+
+<span class="c-comment">// After 2s (Cappuccino's failure at 1s ignored, Espresso wins):</span>
+First success: <span class="c-string">"Espresso ready"</span></pre>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-label"><span class="scenario-tag f">Scenario 2</span><span class="scenario-text">If ALL reject &mdash; rejects with AggregateError</span></div>
+        <pre class="scenario-code"><span class="c-method">Promise</span>.any([espresso(), latte(), cappuccino()])
+  .then(winner =&gt; <span class="c-method">console</span>.log(<span class="c-string">"First success:"</span>, winner))
+  .catch(err =&gt; <span class="c-method">console</span>.log(<span class="c-string">"All failed:"</span>, err.errors));
+
+<span class="c-comment">// Waits for the slowest, then rejects with AggregateError:</span>
+<span class="c-error">All failed: [
+  "Espresso machine broken",
+  "No milk available",
+  "Out of beans!"
+]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Naveen Automation Labs</strong> &middot; JavaScript for SDETs
+  </div>
+
+</div>
+
+<script>
+const pccPromises = [
+  { key: 'esp', duration: 2000, width: 66.6, outcome: 's', label: 'Resolved' },
+  { key: 'lat', duration: 3000, width: 100,  outcome: 's', label: 'Resolved' },
+  { key: 'cap', duration: 1000, width: 33.3, outcome: 'f', label: 'Rejected' }
+];
+
+const pccResults = {
+  all:        { time: 1000, outcome: 'f', text: 'Rejected at 1s — Cappuccino failed, fail-fast triggered' },
+  allSettled: { time: 3000, outcome: 's', text: 'Resolved at 3s — status report of all three returned' },
+  race:       { time: 1000, outcome: 'f', text: 'Rejected at 1s — Cappuccino settled first, lost the race' },
+  any:        { time: 2000, outcome: 's', text: 'Resolved at 2s — Espresso was first to succeed' }
+};
+
+let pccTimers = [];
+
+function pccPlay() {
+  pccReset();
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.panel').forEach(panel => {
+        const method = panel.dataset.method;
+
+        pccPromises.forEach(p => {
+          const row = panel.querySelector(`[data-p="${p.key}"]`);
+          const fill = row.querySelector('.fill');
+          const status = row.querySelector('.row-status');
+
+          fill.style.transition = `width ${p.duration}ms linear`;
+          fill.style.width = p.width + '%';
+
+          pccTimers.push(setTimeout(() => {
+            fill.classList.add(p.outcome);
+            status.classList.add('show', p.outcome);
+            const icon = p.outcome === 's' ? 'check' : 'x';
+            status.innerHTML = `<i class="ti ti-${icon}"></i> ${p.label}`;
+          }, p.duration));
+        });
+
+        const result = pccResults[method];
+        const resultEl = panel.querySelector('[data-result]');
+        pccTimers.push(setTimeout(() => {
+          resultEl.classList.add(result.outcome);
+          const icon = result.outcome === 's' ? 'check' : 'x';
+          resultEl.innerHTML = `<i class="ti ti-${icon}"></i> ${result.text}`;
+        }, result.time));
+      });
+    });
+  });
+}
+
+function pccReset() {
+  pccTimers.forEach(t => clearTimeout(t));
+  pccTimers = [];
+
+  document.querySelectorAll('.fill').forEach(f => {
+    f.style.transition = 'none';
+    f.style.width = '0';
+    f.classList.remove('s', 'f');
+  });
+  document.querySelectorAll('.row-status').forEach(s => {
+    s.classList.remove('show', 's', 'f');
+    s.innerHTML = '';
+  });
+  document.querySelectorAll('.result').forEach(r => {
+    r.classList.remove('s', 'f');
+    r.innerHTML = '<i class="ti ti-clock"></i> Click play to see how it settles';
+  });
+}
+</script>
+
+</body>
+</html>
