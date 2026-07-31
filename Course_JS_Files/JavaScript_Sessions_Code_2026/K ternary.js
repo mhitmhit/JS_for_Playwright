@@ -1,9 +1,10 @@
 
 
 //ternary operator --> ? :
+// (condition) ? do if true : do if false;
 
-let amount = 5;
-let flag = amount >= 10 ? 'naveen' : 'waseem';
+let amount = 15;
+let flag = (amount >= 10) ? 'naveen' : 'waseem';
 console.log(flag);
 
 let element = 'link';
@@ -31,3 +32,5 @@ console.log(flag);
 let age = 20;
 let name = 'xyz';
 console.log(age, '\n', name);
+console.log(age, name);
+console.log(age, '\t', name);

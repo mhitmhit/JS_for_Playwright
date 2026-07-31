@@ -43,9 +43,4 @@ console.log([] === []); //121212 == 1212343 //false
 console.log(typeof []); //object
 
 console.log("" == ""); //0 == 0 : true
-console.log([] == []); //
-
-
-
-
-
+console.log([] == []); //false as it coompares memory address

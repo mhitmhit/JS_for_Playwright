@@ -60,13 +60,14 @@ for (let n = 1; n <= 100; n++) {
 
 
 //while vs for loop:
+
 //while use cases: when number of iterations are not fixed
-//wait for element on the page: 
-//wait for page loading: 
+//wait for element on the page:
+//wait for page loading:
 //webtable pagination: back 1 2 3 4..7.10 next
-//infinite scrolling: 
+//infinite scrolling:
 //calendar: march 2027
-//carousel: 
+//carousel:
 
 //for loop use cases: when number of iterations are fixed
 //month dropdown jan to dec: 1 to 12
@@ -76,12 +77,15 @@ for (let n = 1; n <= 100; n++) {
 
 
 //for .. of
-//for .. in 
+//for .. in
 //foreach method
 
 
 console.log('hello');
+
+// prints to console without a new line
 process.stdout.write('hello');
+process.stdout.write('test');
 
 
 let name = 'naveen';
@@ -105,4 +109,3 @@ while (p <= 10);//T
 
 //use cases: do-while: iterations are not fixed....
 //waiting for the element: is already on the page
-
