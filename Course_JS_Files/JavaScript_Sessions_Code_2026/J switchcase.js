@@ -1,5 +1,5 @@
 
-let browser = 'chrome';
+let browser = 'chromes';
 
 switch (browser) {
     case 'chrome':
@@ -53,7 +53,7 @@ switch (flag) {
 // //2. multi env: QA, DEV, STAGE, UAT, PROD
 // //3. multi user (RBAC): user, admin, customer, vendor, partner
 // //4. Localization: eng, spanish, arabic, chinese
-// //5. uber: booking: mini, sedna, suv, luxury, 
+// //5. uber: booking: mini, sedna, suv, luxury,
 // //6. payment: upi, cc, db, paypal, stripe, wire
 // //7. api status code: 200, 400, 500, 300
 // //8. OS: mac, windows, linux, cloud, server
@@ -63,7 +63,7 @@ switch (flag) {
 
 
 //a e i o u - vowels
-let ch = 'x';
+let ch = 'u';
 switch (ch) {
     case 'a':
     case 'e':

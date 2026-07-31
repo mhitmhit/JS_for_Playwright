@@ -19,10 +19,10 @@ console.log(y);
 let num = 10;
 console.log(num++);//10
 
-console.log(num);
+console.log(num);//11
 
 
-//2. pre(before) increment: 
+//2. pre(before) increment:
 //first increase and then assign
 let m = 1;
 let n = ++m;
