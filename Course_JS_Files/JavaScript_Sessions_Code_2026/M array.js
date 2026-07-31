@@ -1,7 +1,7 @@
 
 
 //Array: collections of data:
-//data: similar data type : Homogeneous 
+//data: similar data type : Homogeneous
 //data: different data type : Hetrogenous
 
 let num = [1, 2, 3, 4, 5]; //5; 0-4
@@ -17,13 +17,13 @@ console.log(num[5]);//undefined
 console.log(num[10]);//undefined
 console.log(num[-1]);//undefined
 
-console.log('-------------');
+console.log('-------------part 1');
 console.log(num);
 num[0] = 10;
 num[4] = 50;
 console.log(num);
 
-console.log('-------------');
+console.log('-------------part 2');
 console.log(num);
 num[10] = 100;
 console.log(num);
@@ -36,8 +36,9 @@ console.log(num);
 console.log(num.length);
 
 
-console.log('-----------');
-
+console.log('-----------part 3');
+// negative index gets added as a key:property value.
+// len counts the number of values only. key:prop are not counted in length;
 let marks = [10, 20, 30, 40];
 
 console.log(marks);
@@ -86,7 +87,7 @@ for (let i = 0; i <= number.length - 1; i++) {
     console.log(number[i]);
 }
 
-console.log('-----------------');
+console.log('-----------------part 4');
 
 for (let i = number.length - 1; i >= 0; i--) {
     console.log(number[i]);
@@ -130,3 +131,4 @@ let arr = [1, 2, 3, 4, 5];
 arr[-1] = 100;
 arr[-2] = 300;
 console.log(Object.getOwnPropertyNames(arr));
+console.log(arr[-1]);
