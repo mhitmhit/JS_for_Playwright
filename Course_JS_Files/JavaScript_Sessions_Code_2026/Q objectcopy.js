@@ -8,7 +8,7 @@ let user = {
 };
 console.log(user);
 
-//shallow copy/cloning of the object
+//shallow copy/cloning of the object.... problems with nested objects.
 // ... spread parameter
 // let myUser = { ...user };
 

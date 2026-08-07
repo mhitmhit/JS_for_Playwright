@@ -7,18 +7,18 @@ let user = {
     isActive: true
 }
 
-// console.log(user['name']);
+ console.log(user['name']);
 
-// //object iteration: for ... in loop:
-// for (let e in user) {
-//     console.log(user[e]);
-//     if (user[e] === 20) {
-//         console.log('bye');
-//         break;
-//     }
-// }
+//object iteration: for ... in loop:
+for (let e in user) {
+    console.log(user[e]);
+    if (user[e] === 20) {
+        console.log('bye');
+        break;
+    }
+}
 
-// console.log('-------');
+console.log('-------');
 console.log(Object.keys(user)); //keys
 console.log(Object.values(user)); //values
 console.log(Object.entries(user));//key-value pair
@@ -26,4 +26,3 @@ console.log(Object.entries(user));//key-value pair
 //JS object to JSON:
 let userJson = JSON.stringify(user, null, 2);
 console.log(userJson);
-

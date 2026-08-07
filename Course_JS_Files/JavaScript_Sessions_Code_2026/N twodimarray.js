@@ -77,7 +77,12 @@ for (let e of prods) {
 
 
 console.log(typeof prods);
+// arrays are of type Objects.
+// Objects are stored in Heap
+// Variables are stored in Stack
 
+// Heap is for Non Primitive
+// Stack is for Primitive
 
 
 
@@ -94,13 +99,13 @@ console.log(numarray.length);
 
 
 
-let prods = ['macbook pro', 'imac', 'iphone 17', 'canon', 'macbook air'];//0-4: 5
+let prods1 = ['macbook pro', 'imac', 'iphone 17', 'canon', 'macbook air'];//0-4: 5
 
-let count = prods.length - 1; //4
-for (let x in prods) {
-    x = count;
-    console.log(prods[x]);
-    count--;
+let count1 = prods1.length - 1; //4
+for (let x in prods1) {
+    x = count1;
+    console.log(prods1[x]);
+    count1--;
 }
 
 

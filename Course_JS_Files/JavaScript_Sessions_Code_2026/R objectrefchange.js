@@ -56,16 +56,16 @@ let p1 = {
     zip: 1442,
 };
 
-// let p2 = p1;
+let p2 = p1;
 
-// console.log(p1);
-// console.log(p2);
+console.log(p1);
+console.log(p2);
 
-// p2.name = 'Dilip';
-// p2.age = 40;
+p2.name = 'Dilip';
+p2.age = 40;
 
-// console.log(p1);
-// console.log(p2);
+console.log(p1);
+console.log(p2);
 
 console.log('----------');
 
@@ -99,4 +99,3 @@ let comp = {
 
 let userData = { ...info, ...address, ...comp };
 console.log(userData);
-

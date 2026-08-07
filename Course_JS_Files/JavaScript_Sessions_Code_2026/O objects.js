@@ -1,12 +1,16 @@
 
-//Objects in JS: non primitive 
+//Objects in JS: non primitive
 //collection of related data (key - value)...
+
+// user object is stored in HEAP. Garbage collector works on HEAP.
+// user ref var is stored in STACK
 
 let user = {
     name: 'Vinay',
     age: 30,
     city: 'pune',
     zip: 1212,
+    country:''
 };
 
 // console.log(user);
@@ -21,7 +25,12 @@ let user = {
 //console.log(user.name);
 
 console.log(user);
+console.log(user.age);
 user.city = 'LA';
+console.log(user.city);
+console.log(user.country);
+console.log(user['city']);
+console.log(user['country']);
 
 user.zip = 9090;
 console.log(user);
@@ -31,6 +40,7 @@ delete user.age;
 console.log(user);
 
 console.log('----------');
+
 //nested objects:
 //JS Objects
 let customer = {
@@ -45,7 +55,7 @@ let customer = {
         flat: 101,
         building: 'new building',
         city: 'Bangalore',
-        zip: 10101
+        zip: 10101,
     }
 };
 
@@ -58,7 +68,13 @@ console.log(customer['address']['zip']);
 
 //
 console.log('----------');
-//JS object
+
+
+
+
+
+
+//JS object not a JSON -----------------------------------------------JS Obj is an Object, JSON is a String
 let user = {
     name: 'Vinay',
     age: 30,
@@ -66,15 +82,17 @@ let user = {
     zip: 1212,
 };
 console.log(user);
-//js object to JSON: serialization (marshelling)
+console.log(typeof user);
+
+//js object to JSON: serialization (marshelling) ---------------------------- Serialization: JS to JSON (JSON.stringify method)
 let userJson = JSON.stringify(user);
 console.log(userJson);
 console.log(typeof userJson);//string
 //POST API: JSON
-
 console.log('-------------');
 
-//JSON string ----> JS Object : De-serialization (Unmarshelling)
+
+//JSON string ----> JS Object : De-serialization (Unmarshelling) -------------De-Serialization: JSON to JS (JSON.parse method)
 let userObj = JSON.parse(userJson);
 console.log(userObj);
 console.log(typeof userObj);//object
@@ -110,3 +128,13 @@ const mem = process.memoryUsage();
 console.log("Heap Total:", (mem.heapTotal / 1024 / 1024).toFixed(2) + " MB");
 console.log("Heap Used:", (mem.heapUsed / 1024 / 1024).toFixed(2) + " MB");
 console.log("RSS:", (mem.rss / 1024 / 1024).toFixed(2) + " MB");
+
+
+let test2 = 'some value';
+let test1 = {
+    name: 'yas',
+    lastname: 'elk',
+    address: test2
+};
+
+console.log(test1);

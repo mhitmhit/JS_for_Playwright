@@ -5,7 +5,7 @@
 //function without class : function
 //function within a class: method
 
-//1. simple function: 
+//1. simple function:
 //zero input param, no return (void)
 
 function test() {
@@ -96,7 +96,7 @@ console.log(totalAmt);
 console.log('----------------');
 
 //WAF: AC
-//launch a browser: 
+//launch a browser:
 //input params: (browserName): valid: chrome, firefox, edge, safari
 //return true
 //print: browser is launched successfully
@@ -104,9 +104,9 @@ console.log('----------------');
 //wrong browserName: print: invalid browser, return false
 
 /**
- * 
- * @param {string} browserName 
- * @returns 
+ *
+ * @param {string} browserName
+ * @returns
  */
 function launchBrowser(browserName) {//CHROME
     console.log('launching browser....' + browserName);
@@ -157,5 +157,3 @@ function printing(name, age) {//2
 
 //printing('naveen');
 printing('tom', 20);
-
-
