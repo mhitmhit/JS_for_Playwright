@@ -34,7 +34,7 @@ getUserDetails(user);//call function by passing object ref...
 
 console.log(user.name);//Peter
 
-//destructuring concept:
+//destructuring concept: ************************************************************
 
 //4 key-value pairs
 let person = {
@@ -70,3 +70,8 @@ console.log(name, age);//Tom 30
 
 let { name: username, age: userage } = person;
 console.log(username, userage);
+
+console.log("-------------------");
+console.log(person);
+username = "ali";
+console.log(username);

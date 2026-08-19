@@ -27,5 +27,3 @@ let getUserData = function getting_user_test_data_from_excel_sheet(name, age) {
 getUserData('Anshu', 20);
 
 console.log(getUserData.name);//getting_user_test_data_from_excel_sheet
-
-

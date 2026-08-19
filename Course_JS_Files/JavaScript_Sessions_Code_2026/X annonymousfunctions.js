@@ -1,6 +1,6 @@
 
 
-//anonymous function: a function has no name:
+//anonymous function: a function that has no name:
 //no name:
 //expression name: test
 
@@ -23,8 +23,8 @@ console.log(add.name);//add
 //
 
 /**
- * 
- * @param {string} browserName 
+ *
+ * @param {string} browserName
  */
 let launchBrowser = function (browserName) {
     switch (browserName.trim().toLowerCase()) {
