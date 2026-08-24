@@ -1,8 +1,10 @@
 
 
 //falsy values: 8 values:
-//true: 1
-//false, 0, -0, 0n, "", null, undefined, NaN
+
+//FALSY VALUES: false, 0, -0, 0n, "", null, undefined, NaN
+//true: 1, anything other than falsy values
+
 //only applicable in the context of if-else
 
 if ("naveen") {

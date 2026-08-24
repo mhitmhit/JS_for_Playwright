@@ -5,7 +5,7 @@ let emp = {
     salary: 12.33,
     coding() {
         console.log(this.name, ' is coding');
-        console.log(name);
+        //console.log(name);
     },
     testing() {
         console.log(emp.name, ' is testing');
@@ -19,6 +19,7 @@ let emp = {
     },
 
     reading: () => {
+        // console.log(this.name, 'reading method.....'); // this does not work
         console.log(emp.name, 'reading method.....');
     }
 }

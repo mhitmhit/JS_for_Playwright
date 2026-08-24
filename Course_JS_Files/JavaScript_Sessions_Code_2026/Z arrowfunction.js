@@ -50,10 +50,10 @@ clickElement('loginButton');
 //return x+y
 
 /**
- * 
- * @param {number} x 
- * @param {number} y 
- * @returns 
+ *
+ * @param {number} x
+ * @param {number} y
+ * @returns
  */
 let add = (x, y) => x + y;
 let res = add(100, 200);
@@ -84,9 +84,9 @@ console.log(xpath);
 //not found: invalid browser, false
 
 /**
- * 
- * @param {string} browserName 
- * @returns 
+ *
+ * @param {string} browserName
+ * @returns
  */
 let launchBrowser = (browserName) => {
     console.log('trying to launch ', browserName);
@@ -132,8 +132,8 @@ console.log(u1);
 
 //
 /**
- * 
- * @param  {...string} empNames 
+ *
+ * @param  {...string} empNames
  */
 let printEmpList = (...empNames) => {
     console.log(empNames.length);

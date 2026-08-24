@@ -1,13 +1,14 @@
-//Mutator Methods: 
+//Mutator Methods:
 //1. push: add the element to the end of the array
 let num = [1, 2, 3, 4, 5];
 console.log(num.length);//5
 
+// add num to end of array, it returns the new lengthg
 let e1 = num.push(100);
 console.log(num);
 console.log(e1);//6
 
-//2. pop: remove the last element 
+//2. pop: remove the last element
 let num = [1, 2, 3, 4, 5];
 let t1 = num.pop();
 console.log(t1);
@@ -26,6 +27,7 @@ console.log(cart);
 
 //5. splice: add, remove, replace:
 //splice(startindex, deletecount, itme(s))
+
 let cart = ['imac', 'samsung', 'iphone', 'macbook'];
 //cart.splice(0, 0, 'Naveen');
 // console.log(cart);
@@ -120,7 +122,7 @@ console.log(num.at(-1));//5
 console.log(num.at(-5));//1
 console.log(num[-1]);//undefined
 
-//13. forEach method: 
+//13. forEach method:
 let cart = ['imac', 'samsung', 'iphone', 'macbook', 'keyboard', 'tom'];
 
 cart.forEach((e) => {
