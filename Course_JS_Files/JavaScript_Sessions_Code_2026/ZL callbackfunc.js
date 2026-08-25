@@ -1,3 +1,5 @@
+// calling a func1 by passing a func2 (func2 is called a callback function)
+
 function testing(callback) {
     console.log('hello');
     callback();

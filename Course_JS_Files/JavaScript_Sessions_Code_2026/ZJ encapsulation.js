@@ -1,7 +1,7 @@
 
 
 
-//Encapsulation: 
+//Encapsulation:
 
 class Employee {
     name;//public
@@ -68,7 +68,7 @@ class LoginPage {
 
 }
 
-//POST 
+//POST
 let lp = new LoginPage('naveen@gmail.com', 'naveen@123');
 
 //GET
@@ -121,7 +121,7 @@ class User {
 
 }
 
-let obj = new User('Tom', 21, 50);
+let obj = new User('Tom', 18, 50);
 let t1 = obj.getAge();
 console.log(t1);
 
