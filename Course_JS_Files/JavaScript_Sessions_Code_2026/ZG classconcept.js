@@ -23,7 +23,7 @@ export class Employee {
     //actions : Methods
     coding() {
         console.log(this.name, ' is coding');
-        console.log(url);
+        //console.log(url);
     }
 
     reading() {

@@ -1,5 +1,5 @@
 
-import { totalBill } from "./app.js";
+import { totalBill } from "./ZF app.js";
 
 const PI = 3.14;
 
@@ -17,6 +17,7 @@ export default function coding() {
     console.log('coding');
 }
 
+console.log(totalBill);
 // let username = 'naveen';
 // export default username;
 
@@ -27,7 +28,7 @@ export { PI, driving, print };
 //3. can have only one default function or variable
 //will not be part of object destructuring
 // export default myname ---> import myname
-//4. rename: 
+//4. rename:
 //export {a,b,c} --> import {a as myA, b as myB, c as myC}
 //5. import all: import myname, * as MyApp
 //6. clg, clg ---> by default imported in calling file
