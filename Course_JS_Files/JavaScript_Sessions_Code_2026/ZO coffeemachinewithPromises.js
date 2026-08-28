@@ -53,7 +53,7 @@ startMachine()
     .then(() => console.log('Your coffee is ready...enjoy!!'))
     .catch((error) => console.log(error));
 
-//callback hell ---> promises chain----> async await concept.....
+//callback hell --solved by-----> promises chain   --improved by-----> async await concept.....
 
 // startMachine(() => {
 //     boilWater(() => {

@@ -1,6 +1,6 @@
 
 //Promise:
-//1. Pending 
+//1. Pending
 //2. resolve -- fullfillment -- return the resource(data)
 //3. rejected -- reason (error reason)
 
@@ -23,7 +23,11 @@ pizzaPromise
     .catch((error) => console.log(error))
     .finally(() => console.log('close the app...'));
 
-//
+
+
+
+
+    //
 function getUserInfo(userId, timeout) {
 
     return new Promise((resolve, reject) => {
@@ -51,7 +55,7 @@ getUserInfo(101, 5000)
     .finally(() => console.log('close the DB connection'));
 
 //click -- promises with wait(30 secs)
-//fill -- promises 
+//fill -- promises
 //textContent()
 //goto(url)
 
@@ -76,6 +80,7 @@ function getBrowserError() {
 }
 
 getBrowserError().catch(error => console.log(error));
+
 
 
 //will alwys return a pizza with a resolve promise

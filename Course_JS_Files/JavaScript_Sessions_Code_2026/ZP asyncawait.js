@@ -5,7 +5,8 @@
 //to aovid the pyramid of doom...
 
 //async with function --> It will always return a promise
-//await with steps
+//await with steps.... async functions always return a promise, annoying to get value quickly from that.
+//      to get around this, we use await.
 
 
 async function print() {

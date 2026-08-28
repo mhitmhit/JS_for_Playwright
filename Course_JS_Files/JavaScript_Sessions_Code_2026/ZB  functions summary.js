@@ -31,6 +31,21 @@ or
     console.log('hello naveen');
 }
 
-//callback functions
+//callback functions:
+// calling a func1 by passing a func2 (func2 is called a callback function)
+function testing(callback) {
+    console.log('hello');
+    callback();
+}
+
+function print() {
+    console.log('hello world');
+}
+
+setTimeout(()=>{
+    console.log('doing some work....');
+}, 4000);
+
 
 //aysnc await functions
+// callback hell (cb within cb within cb....)  ------solved by-----> promises  -----improved by---> async await
