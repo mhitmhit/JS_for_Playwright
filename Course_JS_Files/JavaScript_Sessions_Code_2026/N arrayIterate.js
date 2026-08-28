@@ -2,7 +2,7 @@
 let products = ['macbook pro', 'imac', 'iphone 17', 'canon', 'macbook air'];//0-4: 5
 
 console.log(products);
-
+console.log(products.length);
 //1. index based loop:
 for (let i = 0; i <= products.length - 1; i++) {
     console.log(products[i]);
@@ -41,7 +41,7 @@ for (let e of num) {
     console.log(e);
 }
 
-//for ... of
+//for ... of .... takes the item within the index
 let empData = ['Tom', 34.44, true, 101, 'Pune'];
 console.log(empData);
 
@@ -51,10 +51,9 @@ for (let e of empData) {
 
 console.log(empData);
 
-//for ... in
+//for ... in....takes the index of the item, not the value
 let prods = ['macbook pro', 'imac', 'iphone 17', 'canon', 'macbook air'];//0-4: 5
 
 for (let e in prods) {
     console.log(prods[e]);
 }
-
