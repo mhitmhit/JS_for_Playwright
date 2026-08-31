@@ -113,7 +113,7 @@ getUserInfo(101, 5000)
     .catch((error) => console.log(error))
     .finally(() => console.log('close the DB connection'));
 
-// resolve only promise
+// resolve only promise. resolve is mandatory when we create the promise object.
 function getNumber() {
     return Promise.resolve(100);
 }
@@ -164,7 +164,27 @@ myPromise.catch(res => console.log(res));
 
 //async await ---
 //1. if a function is wriiten with async -- alwys returns a promise --> call it using with await
-//2. if a function is returning a Promise (resolve, reject) ---> call it using with await
+//2. if a function is returning a Promise (resolve, reject) ---> call it using with await - dont need the word Async.
 //3. we should not write await without async function
 //4. async func -- its not mandatory to have await step --> will alwys return promise
 //5. if in a function, you have await steps --- then that function should be async
+function getUser() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ name: 'Tom', age: 30 });
+        }, 2000);
+    })
+}
+
+//getUser().then(user => console.log(user));
+
+let user = await getUser();
+console.log(user);
+
+
+async function getTrainer() {
+    return 'naveen';
+}
+
+let trName = await getTrainer();
+console.log(trName);
