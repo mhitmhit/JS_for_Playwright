@@ -2,7 +2,7 @@
 
 
 //async-await: just a syntax on top of JS Promises to improve the callback hell and promises chain.
-//to aovid the pyramid of doom...
+//to avoid the pyramid of doom...
 
 //async with function --> It will always return a promise
 //await with steps.... async functions always return a promise, annoying to get value quickly from that.
@@ -18,7 +18,7 @@ print();
 async function getNumber() {
     return 100;
 }
-
+console.log(getNumber());
 getNumber().then(t1 => console.log(t1));
 
 let t1 = await getNumber();
